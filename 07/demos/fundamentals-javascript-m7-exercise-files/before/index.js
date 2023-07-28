@@ -19,7 +19,7 @@ function getInput(promptText, validator, transformer) {
     let value = prompt(promptText);
     if (validator && !validator(value)) {
         console.error(`ERROR: --Invald input`);
-        process.exit(1);
+        return getInput(promptText, validator, transformer);
     }
 
     if (transformer) {
@@ -30,11 +30,12 @@ function getInput(promptText, validator, transformer) {
 }
 
 // // TransformBooleanValue functions ------------------------------------------------
-// const TransformBooleanValue = (input) => {
-//     return (input === "yes");
-// }
+const TransformBooleanValue = (input) => {
+    return (input === "yes");
+}
 
-// Validator functions ------------------------------------------------
+// Validator functions------------------------------------------------
+
 const isStringInputValid = function (input) {
     return (input) ? true : false;
 }
@@ -43,29 +44,40 @@ const isBooleanInputValid = function (input) {
     return (input === "yes" || input === "no");
 }
 
-const isStartYearValid = function (input) {
-    let numValue = Number(input);
-    if (!Number.isInteger(numValue) || numValue < 1900 || numValue > 2023) {
-        return false;
+// const isStartYearValid = function (input) {
+//     let numValue = Number(input);
+//     if (!Number.isInteger(numValue) || numValue < 1900 || numValue > 2023) {
+//         return false;
+//     }
+//     return true;
+// }
+
+// const isStartMonthValid = function (input) {
+//     let numValue = Number(input);
+//     if (!Number.isInteger(numValue) || numValue < 1 || numValue > 12) {
+//         return false;
+//     }
+//     return true;
+// }
+
+// const isStartDayValid = function (input) {
+//     let numValue = Number(input);
+//     if (!Number.isInteger(numValue) || numValue < 1 || numValue > 31) {
+//         return false;
+//     }
+//     return true;
+// }
+
+const isIntergerValid = (min, max) => {
+    return (input) => {
+        let numValue = Number(input);
+        if (!Number.isInteger(numValue) || numValue < min || numValue > max) {
+            return false
+        }
+        return true
     }
-    return true;
 }
 
-const isStartMonthValid = function (input) {
-    let numValue = Number(input);
-    if (!Number.isInteger(numValue) || numValue < 1 || numValue > 12) {
-        return false;
-    }
-    return true;
-}
-
-const isStartDayValid = function (input) {
-    let numValue = Number(input);
-    if (!Number.isInteger(numValue) || numValue < 1 || numValue > 31) {
-        return false;
-    }
-    return true;
-}
 
 // Search for employees by ID
 function searchById() {
@@ -147,9 +159,9 @@ function addEmployee() {
     employee.firstName = getInput("First Name: ", isStringInputValid);
     employee.lastName = getInput("Last Name: ", isStringInputValid);
 
-    let startDateYear = getInput("Employee Start Year ( 1990-2023 ): ", isStartYearValid);
-    let startDateMonth = getInput("Employee Start Date Month ( 1-12 ): ", isStartMonthValid);
-    let startDateDay = getInput("Employee Start Date Day ( 1-31 ): ", isStartDayValid);
+    let startDateYear = getInput("Employee Start Year ( 1990-2023 ): ", isIntergerValid(1990, 2023));
+    let startDateMonth = getInput("Employee Start Date Month ( 1-12 ): ", isIntergerValid(1, 12));
+    let startDateDay = getInput("Employee Start Date Day ( 1-31 ): ", isIntergerValid(1, 31));
 
     employee.startDate = new Date(startDateYear, startDateMonth - 1, startDateDay);
     employee.isActive = getInput("Is employee active ( yes or no ): ", isBooleanInputValid, i => (i === "yes"));
