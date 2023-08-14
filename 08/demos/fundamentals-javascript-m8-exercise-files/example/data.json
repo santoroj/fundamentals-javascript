@@ -703,5 +703,14 @@
     "isActive": true,
     "salaryUSD": "105000",
     "localCurrency": "JPY"
+  },
+  {
+    "id": 65,
+    "firstName": "Joe",
+    "lastName": "Santoro",
+    "startDate": "1999-03-03T05:00:00.000Z",
+    "isActive": true,
+    "salaryUSD": "105000",
+    "localCurrency": "GBP"
   }
 ]
