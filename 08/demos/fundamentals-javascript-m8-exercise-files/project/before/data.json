@@ -658,5 +658,14 @@
     "dateBirth": "1993-06-06",
     "startDate": "2012-01-04",
     "isActive": true
+  },
+  {
+    "id": 60,
+    "firstName": "Joe",
+    "lastName": "Bloogs2",
+    "startDate": "2020-01-09T00:00:00.000Z",
+    "isActive": true,
+    "salaryUSD": "40000",
+    "localCurrency": "EUR"
   }
 ]
